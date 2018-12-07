@@ -15,20 +15,18 @@ global.db = mysql.createConnection({
 global.db.query = util.promisify(global.db.query);
 
 // Открыть с БД и вывести в консоль сузествующего пользователя с машинами
-// User.withCars()
+User.withCars()
 
 // Создать нового пользователя
-let user1 = new User();
-// user1.create({
-//   firstName: "Nikita",
-//   lastName: "Chernyavsky",
-//   age: 20,
-//   gender: "M"
-// })
-
-// Изменить имя пользователю
 let user2 = new User();
-user2.update(3,user2.fields[1],"Nikita");
+user2.pk = 4;
+user2.fields = [user2.pk,"Danil","Albertovish",35,"M"];
+user2.create();
+// Изменить имя пользователю
+user2.fields[1] = "Nikita";
+user2.update();
 // Удалить пользователя
+user2.delete();
 
 // Добавить пользователю новую машину
+TODO: //не реализовано

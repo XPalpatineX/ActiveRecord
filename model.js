@@ -7,46 +7,45 @@ class Model {
       .catch((err) => console.log(err))
   }
 
-  loadAll(id = 0) {
-    global.db.query(`Select * from ${this.constructor.table()} where id = ${id}`)
+  loadAll() {
+    global.db.query(`Select * from ${this.constructor.table()} where id = ${this.pk}`)
       .then((res) => {
         console.log(res)
       })
       .catch((err) => console.log(err))
   }
 
-  load(id, field) {
-    global.db.query(`Select ${field} from ${this.constructor.table()} where id = ${id}`)
+  load(field) {
+    global.db.query(`Select ${field} from ${this.constructor.table()} where id = ${this.pk}`)
       .then((res) => {
         console.log(res)
       })
       .catch((err) => console.log(err))
   }
 
-  create(info) {
-    if (isEmpty(info)) return false
-
-    global.db.query(`INSERT INTO ${this.constructor.table()} (first_name,last_name,age,gender) VALUES ("${info.firstName}","${info.lastName}","${info.age}","${info.gender}")`)
+  create() {
+    global.db.query(`INSERT INTO ${this.constructor.table()} (id,first_name,last_name,age,gender) VALUES (${this.fields[0]},"${this.fields[1]}","${this.fields[2]}","${this.fields[3]}","${this.fields[4]}")`)
     .then((res) => {
       console.log(res)
     })
     .catch((err) => console.log(err))
   }
 
-  update(id,field,value) {
-    global.db.query(`UPDATE ${this.constructor.table()} SET ${field} = "${value}" WHERE id = ${id}`)
+  update() {
+    global.db.query(`UPDATE ${this.constructor.table()} SET first_name = "${this.fields[1]}", last_name = "${this.fields[2]}", age = "${this.fields[3]}", gender = "${this.fields[4]}" WHERE id = ${this.pk}`)
     .then((res) => {
       console.log(res)
     })
     .catch((err) => console.log(err))
   }
-}
 
-function isEmpty(obj) {
-  for (let key in obj) {
-    return false;
+  delete() {
+    global.db.query(`DELETE FROM ${this.constructor.table()} WHERE id = ${this.pk}`)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => console.log(err))
   }
-  return true;
 }
 
 
